@@ -1,0 +1,85 @@
+//
+//  PrefixHeader.pch
+//  ScanCode
+//
+//  Created by wangheng on 2019/12/12.
+//  Copyright © 2019年 wangheng. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#define kkWindow [UIApplication sharedApplication].keyWindow
+#define kScreen_Bounds [UIScreen mainScreen].bounds
+#define kScreen_Height [UIScreen mainScreen].bounds.size.height
+#define kScreen_Width [UIScreen mainScreen].bounds.size.width
+#define kScreen_Proportion [UIScreen mainScreen].bounds.size.width / 375
+#define kDevice_Is_iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kDevice_Is_iPhone6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kDevice_Is_iPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
+
+#define ESWeak(var, weakVar) __weak __typeof(&*var) weakVar = var
+#define ESStrong_DoNotCheckNil(weakVar, _var) __typeof(&*weakVar) _var = weakVar
+#define ESStrong(weakVar, _var) ESStrong_DoNotCheckNil(weakVar, _var); if (!_var) return;
+
+#define ESWeak_(var) ESWeak(var, weak_##var);
+#define ESStrong_(var) ESStrong(weak_##var, _##var);
+
+/** defines a weak `self` named `__weakSelf` */
+#define ESWeakSelf ESWeak(self, __weakSelf);
+/** defines a strong `self` named `_self` from `__weakSelf` */
+#define ESStrongSelf_ ESStrong(__weakSelf, _self);
+/** defines a strong `__weakSelf` named `__strongSelf` */
+#define ESStrongSelf __strong typeof(__weakSelf) __strongSelf = __weakSelf;
+
+//iPhone X适配
+#define IOS11_OR_LATER_SPACE(par)\
+({\
+float space = 0.0;\
+if (@available(iOS 11.0, *))\
+space = par;\
+(space);\
+})
+#define JF_KEY_WINDOW [UIApplication sharedApplication].keyWindow
+#define JF_TOP_SPACE IOS11_OR_LATER_SPACE(JF_KEY_WINDOW.safeAreaInsets.top) //上边距status值
+#define JF_TOP_ACTIVE_SPACE IOS11_OR_LATER_SPACE(MAX(0, JF_KEY_WINDOW.safeAreaInsets.top-20))  //与其他上边距status差值
+#define JF_BOTTOM_SPACE IOS11_OR_LATER_SPACE(JF_KEY_WINDOW.safeAreaInsets.bottom) //下边距值
+
+#define iOS8 ([UIDevice currentDevice].systemVersion.floatValue >= 8.0f)
+#define iOS9 ([UIDevice currentDevice].systemVersion.floatValue >= 9.0f)
+#define iOS10 ([[UIDevice currentDevice].systemVersion doubleValue] >= 10.0)
+
+#define kHigher_iOS_8_4 (floor(NSFoundationVersionNumber) > (NSFoundationVersionNumber_iOS_8_4))
+#pragma mark 字体相关属性
+#define kFontPingFangMedium (kHigher_iOS_8_4 ? @"PingFangSC-Medium" : @"STHeitiSC-Medium")
+#define kFontPingFangRegular (kHigher_iOS_8_4 ? @"PingFangSC-Regular" : @"STHeitiSC-Light")
+
+
+
+#define COLOR(r,g,b,a) ([UIColor colorWithRed:(float)r/255.f green:(float)g/255.f blue:(float)b/255.f alpha:a])
+#define kAllPagesBackgroundColor        [UIColor colorWithRed:(245.0 / 255.0) green:(245.0 / 255.0) blue:(245.0 / 255.0) alpha:1.0]    //所有界面底色
+#define kAllPagesAuxiliaryTextGrayColor        [UIColor colorWithRed:(187.0 / 255.0) green:(187.0 / 255.0) blue:(187.0 / 255.0) alpha:1.0]      //辅助文字 灰色
+
+#define kAllPagesCustomeColor        [UIColor colorWithRed:(78.0 / 255.0) green:(144.0 / 255.0) blue:(254.0 /255.0) alpha:1.0]      //所有界面的 按钮颜色
+#define kAllPagesCustomeGrayColor        [UIColor colorWithRed:(188.0 / 255.0) green:(188.0 / 255.0) blue:(188.0 / 255.0) alpha:1.0]      //所有界面的灰色按钮颜色
+#define kAllPagesBottomLineColor        [UIColor colorWithRed:(191.0 / 255.0) green:(191.0 / 255.0) blue:(191.0 / 255.0) alpha:1.0]    //添加的下划线的颜色
+//黄色导航栏
+#define NavBarColor [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0]
+
+
+
+#define BackgroundColor [UIColor whiteColor]
+#define PlaceholderColor [UIColor convertHexColorToUIColor:0x999999]
+#define TextFieldColor [UIColor convertHexColorToUIColor:0x333333]
+#define LineViewColor [UIColor convertHexColorToUIColor:0xF7F7F7]
+#define PlaceholderFont [UIFont fontWithName:kFontPingFangRegular size:18]
+#define TextFieldFont [UIFont fontWithName:kFontPingFangRegular size:18]
+
+
+#import "Masonry.h"
+#import "UIColor+Addition.h"
+#import "WHConfig.h"
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* PrefixHeader_pch */
